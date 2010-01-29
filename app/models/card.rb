@@ -5,4 +5,12 @@ class Card < ActiveRecord::Base
   def to_s
     rank + suit
   end
+
+  def red?
+    suit == '♥' or suit == '♦'
+  end
+
+  def black?
+    not red?
+  end
 end

@@ -1,6 +1,6 @@
 <% card_id = "card_#{@card.id}" %>
 
-<% if @card.suit == '♥' or @card.suit == '♦'
+<% if @card.red?
      card_class = "red-card"
    else
      card_class = "black-card"

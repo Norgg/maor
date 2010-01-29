@@ -23,6 +23,8 @@ class GamesController < ApplicationController
 
   def playcard
     @game = Game.find params[:id]
+
+    return if params[:card_id] == 'deck'
     @card = Card.find params[:card_id]
     
     deck = @game.deck
@@ -37,6 +39,21 @@ class GamesController < ApplicationController
       page.remove "card_#{@card.id}"
       page.replace_html "discard", render(:partial => 'cards/show')
       page.replace_html "lastplayer", "Played by #{deck.last_player.name}."
+    end
+  end
+
+  def drawcard
+    @game = Game.find params[:id]
+
+    if params[:card_id] == 'deck'
+      @game.deck.deal current_player
+      render :update do |page|
+        page.replace_html "hand", render(:partial => 'players/hand')
+      end
+    else
+      @card = Card.find params[:card_id]
+      @card.player = current_player
+      @card.save!
     end
   end
 

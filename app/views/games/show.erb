@@ -13,8 +13,12 @@
   <% if current_player.game == @game %>
 
     Deck:<br/>
-    <div id="deck"></div>
-
+    <div id="deck">
+      <div class="card" id="card_deck">
+      ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣
+      </div> 
+      <%= draggable_element('card_deck', :revert=>true) %>
+    </div>
     <br/>
     
     Discard pile:<br/>
@@ -38,10 +42,12 @@
 
     Your hand:<br/>
     <div id="hand">
-      <% for @card in current_player.cards %>
-        <%= render :partial => 'cards/show' %>
-      <% end %>
-    </div> 
+      <%= render :partial => 'players/hand' %>
+    </div>
+    <%= drop_receiving_element 'hand', 
+                           :accept => 'card',
+                           :with => "'card_id=' + (element.id.split('_').last())",
+                           :url => drawcard_game_path(@game) %>
   <% else %>
     You are currently playing in: 
     <%= link_to current_player.game.name, current_player.game %>

@@ -6,7 +6,7 @@ class CreateCards < ActiveRecord::Migration
       t.references :deck
       t.references :player
       t.boolean :in_deck
-      t.boolean :discarded
+      t.integer :discarded
 
       t.timestamps
     end

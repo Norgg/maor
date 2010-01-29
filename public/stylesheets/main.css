@@ -27,18 +27,29 @@
   color: #f00;
 }
 
+#card_deck {
+  background: #555;
+  color: #aaa;
+  overflow: hidden;
+}
+
 #discard {
-  position: relative;
   height: 70px;
   width: 50px;
-  padding-left: 2px;
-  padding-top: 2px;
+  padding-left: 5px;
+  padding-top: 5px;
   border: 1px solid #333;
 }
 
 #deck {
-  position: relative;
   height: 70px;
   width: 50px;
+  padding-left: 5px;
+  padding-top: 5px;
+  border: 1px solid #333;
+}
+
+#hand {
+  padding: 5px;
   border: 1px solid #333;
 }

@@ -4,6 +4,7 @@ class CreateDecks < ActiveRecord::Migration
       t.references :game
       t.integer :last_card_id
       t.integer :last_player_id
+      t.integer :discard_counter
 
       t.timestamps
     end
