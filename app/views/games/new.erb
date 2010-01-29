@@ -1,0 +1,6 @@
+<h3>New game</h3>
+
+<% form_for @game do |f| %>
+  <%= f.text_field :name %>
+  <%= submit_tag 'Create' %>
+<% end %>

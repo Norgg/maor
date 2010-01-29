@@ -1,0 +1,9 @@
+<ul>
+<% for player in @game.players %>
+  <% if player == current_player %>
+    <li><%=h player.name %> (you)</li>
+  <% else %>
+    <li><%=h player.name %> (<%=h player.cards.size%> cards).</li>
+  <% end %>
+<% end %>
+</ul>

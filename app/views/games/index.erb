@@ -1,0 +1,7 @@
+<%= link_to "Start a new game", new_game_path %>
+
+<ul>
+<% for game in @games %>
+  <li><%=link_to game.name, game%></li>
+<% end %>
+</ul>

@@ -1,0 +1,44 @@
+.card {
+  position: relative;
+  padding-left: 3px;
+  height: 60px;
+  width: 40px;
+  border: 1px solid #aaa;
+  display: inline-block;
+  cursor: -moz-grab;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+.bottom-right-card {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+
+.black-card {
+  height: 100%;
+  width: 100%;
+}
+
+.red-card {
+  height: 100%;
+  width: 100%;
+  color: #f00;
+}
+
+#discard {
+  position: relative;
+  height: 70px;
+  width: 50px;
+  padding-left: 2px;
+  padding-top: 2px;
+  border: 1px solid #333;
+}
+
+#deck {
+  position: relative;
+  height: 70px;
+  width: 50px;
+  border: 1px solid #333;
+}

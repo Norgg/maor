@@ -1,0 +1,60 @@
+<h2><%=h @game.name %></h2>
+
+<h3>Players:</h3>
+<% if @game.players.empty? %>
+  Game currently empty.
+<% else %>
+  <div id="players">
+    <%= render :partial => 'players/index' %>
+  </div>
+<% end %>
+
+<% if current_player %>
+  <% if current_player.game == @game %>
+
+    Deck:<br/>
+    <div id="deck"></div>
+
+    <br/>
+    
+    Discard pile:<br/>
+    <div id="discard">
+      <% if @game.deck.last_card %>
+        <% @card = @game.deck.last_card %>
+        <%= render :partial => 'cards/show' %>
+      <% end %>
+    </div>
+    <div id="lastplayer">
+      <% if @game.deck.last_player %>
+        Played by <%=h @game.deck.last_player.name %>.
+      <% end %>
+    </div>
+
+    <%= drop_receiving_element 'discard', 
+                               :accept => 'card',
+                               :with => "'card_id=' + (element.id.split('_').last())",
+                               :url => playcard_game_path(@game) %>
+    <br/>
+
+    Your hand:<br/>
+    <div id="hand">
+      <% for @card in current_player.cards %>
+        <%= render :partial => 'cards/show' %>
+      <% end %>
+    </div> 
+  <% else %>
+    You are currently playing in: 
+    <%= link_to current_player.game.name, current_player.game %>
+  <% end %>
+
+  <hr/><%= link_to "Leave", leave_players_path %>
+  <%= periodically_call_remote :url => refresh_game_path(@game), :frequency => 3 %>
+  
+<% else %>
+  <% form_for @player do |f| %>
+    <%= f.text_field :name %>
+    <%= f.hidden_field :game_id, :value => @game.id %>
+    <%= submit_tag 'Join this game' %>
+  <% end %>
+<% end %>
+

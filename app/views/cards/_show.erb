@@ -1,0 +1,16 @@
+<% card_id = "card_#{@card.id}" %>
+
+<% if @card.suit == '♥' or @card.suit == '♦'
+     card_class = "red-card"
+   else
+     card_class = "black-card"
+   end %>
+
+<div class="card" id="<%= card_id %>">
+  <div class="<%= card_class %>">
+    <%=h @card.to_s %>
+    <div class="bottom-right-card"><%=h @card.to_s %></div>
+  </div>
+</div> 
+<%= draggable_element(card_id, :revert=>true) %>
+
