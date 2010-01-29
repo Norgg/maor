@@ -24,20 +24,23 @@ class GamesController < ApplicationController
   def playcard
     @game = Game.find params[:id], :include => :deck
 
-    return if params[:card_id] == 'deck'
-    @card = Card.find params[:card_id]
-    
-    deck = @game.deck
-    deck.last_player = @card.player if @card.player
-    deck.discard_counter += 1
-    deck.save!
+    if params[:card_id] == 'deck'
+      render :update do |page|
+      end
+    else
+      @card = Card.find params[:card_id]
+      
+      deck = @game.deck
+      deck.discard_counter += 1
+      deck.save!
 
-    @card.discarded = deck.discard_counter
-    @card.save!
-    render :update do |page|
-      page.remove "card_#{@card.id}"
-      page.replace_html "discard", render(:partial => 'cards/show')
-      page.replace_html "lastplayer", "Played by #{@card.player.name}."
+      @card.discarded = deck.discard_counter
+      @card.save!
+      render :update do |page|
+        page.remove "card_#{@card.id}"
+        page.replace_html "discard", render(:partial => 'cards/show')
+        page.replace_html "lastplayer", "Played by #{@card.player.name}."
+      end
     end
   end
 
@@ -58,9 +61,15 @@ class GamesController < ApplicationController
       @card = @game.deck.discard_top
 
       render :update do |page|
-        page.replace_html "discard", render(:partial => 'cards/show')
         page.replace_html "hand", render(:partial => 'players/hand')
-        page.replace_html "lastplayer", "Played by #{@card.player.name}."
+        
+        if @card
+          page.replace_html "discard", render(:partial => 'cards/show')
+          page.replace_html "lastplayer", "Played by #{@card.player.name}."
+        else
+          page.replace_html "discard", ''
+          page.replace_html "lastplayer", ''
+        end
       end
     end
   end
@@ -72,8 +81,14 @@ class GamesController < ApplicationController
 
     render :update do |page|
       page.replace_html "players", render(:partial => 'players/index')
-      page.replace_html "discard", render(:partial => 'cards/show')
-      page.replace_html "lastplayer", "Played by #{@card.player.name}."
+
+      if @card
+        page.replace_html "discard", render(:partial => 'cards/show')
+        page.replace_html "lastplayer", "Played by #{@card.player.name}."
+      else
+        page.replace_html "discard", ''
+        page.replace_html "lastplayer", ''
+      end
     end
   end
 end

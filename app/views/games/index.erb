@@ -1,4 +1,10 @@
-<%= link_to "Start a new game", new_game_path %>
+
+<% if current_player and current_player.game %>
+  You are currently playing in: 
+  <%= link_to current_player.game.name, current_player.game %>
+<% else %>
+  <%= link_to "Start a new game", new_game_path %>
+<% end %>
 
 <ul>
 <% for game in @games %>

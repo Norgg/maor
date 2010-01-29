@@ -12,26 +12,30 @@
 <% if current_player %>
   <% if current_player.game == @game %>
 
-    Deck:<br/>
-    <div id="deck">
-      <div class="card" id="card_deck">
-      ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣
-      </div> 
-      <%= draggable_element('card_deck', :revert=>true) %>
+    <div id="deckcontainer">
+      Deck:<br/>
+      <div id="deck">
+        <div class="card" id="card_deck">
+        ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣
+        </div> 
+        <%= draggable_element('card_deck', :revert=>true) %>
+      </div>
+      <br/>
     </div>
-    <br/>
     
-    Discard pile:<br/>
-    <div id="discard">
-      <% if @game.deck.discard_top %>
-        <% @card = @game.deck.discard_top %>
-        <%= render :partial => 'cards/show' %>
-      <% end %>
-    </div>
-    <div id="lastplayer">
-      <% if @game.deck.last_player %>
-        Played by <%=h @game.deck.last_player.name %>.
-      <% end %>
+    <div id="discardcontainer">
+      Discard pile:<br/>
+      <div id="discard">
+        <% if @game.deck.discard_top %>
+          <% @card = @game.deck.discard_top %>
+          <%= render :partial => 'cards/show' %>
+        <% end %>
+      </div>
+      <div id="lastplayer">
+        <% if @game.deck.discard_top %>
+          Played by <%=h @game.deck.discard_top.player.name %>.
+        <% end %>
+      </div>
     </div>
 
     <%= drop_receiving_element 'discard', 
@@ -48,13 +52,13 @@
                            :accept => 'card',
                            :with => "'card_id=' + (element.id.split('_').last())",
                            :url => drawcard_game_path(@game) %>
+    <%= periodically_call_remote :url => refresh_game_path(@game), :frequency => 3 %>
   <% else %>
     You are currently playing in: 
     <%= link_to current_player.game.name, current_player.game %>
   <% end %>
 
   <hr/><%= link_to "Leave", leave_players_path %>
-  <%= periodically_call_remote :url => refresh_game_path(@game), :frequency => 3 %>
   
 <% else %>
   <% form_for @player do |f| %>
@@ -63,4 +67,7 @@
     <%= submit_tag 'Join this game' %>
   <% end %>
 <% end %>
+
+<br/>
+<%= link_to "Back to games.", games_path %>
 

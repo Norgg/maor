@@ -1,7 +1,6 @@
 class Deck < ActiveRecord::Base
   has_many :cards
   belongs_to :game
-  belongs_to :last_player, :class_name => 'Player', :foreign_key => 'last_player_id'
 
   after_create :generate
 
@@ -28,7 +27,7 @@ class Deck < ActiveRecord::Base
   end
 
   def discard_top
-    Card.find_last_by_deck_id self.id, :order => :discarded
+    Card.find_last_by_deck_id self.id, :order => :discarded, :conditions => ['discarded >= 0']
   end
 
   def deal player, num_cards = 1
