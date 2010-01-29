@@ -3,7 +3,7 @@
   <% if player == current_player %>
     <li><%=h player.name %> (you)</li>
   <% else %>
-    <li><%=h player.name %> (<%=h player.cards.size%> cards).</li>
+    <li><%=h player.name %> (<%=h player.hand.size%> cards).</li>
   <% end %>
 <% end %>
 </ul>

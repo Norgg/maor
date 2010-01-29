@@ -23,8 +23,8 @@
     
     Discard pile:<br/>
     <div id="discard">
-      <% if @game.deck.last_card %>
-        <% @card = @game.deck.last_card %>
+      <% if @game.deck.discard_top %>
+        <% @card = @game.deck.discard_top %>
         <%= render :partial => 'cards/show' %>
       <% end %>
     </div>

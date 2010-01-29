@@ -17,15 +17,15 @@ ActiveRecord::Schema.define(:version => 20100128151956) do
     t.integer  "deck_id"
     t.integer  "player_id"
     t.boolean  "in_deck"
-    t.boolean  "discarded"
+    t.integer  "discarded"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "decks", :force => true do |t|
     t.integer  "game_id"
-    t.integer  "last_card_id"
     t.integer  "last_player_id"
+    t.integer  "discard_counter"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

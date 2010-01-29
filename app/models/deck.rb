@@ -1,12 +1,12 @@
 class Deck < ActiveRecord::Base
   has_many :cards
   belongs_to :game
-  belongs_to :last_card, :class_name => 'Card', :foreign_key => 'last_card_id'
   belongs_to :last_player, :class_name => 'Player', :foreign_key => 'last_player_id'
 
   after_create :generate
 
   def generate
+    self.discard_counter = 1
     ranks = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
     suits = ["♠", "♥", "♦", "♣"]
     ranks.each do |rank|
@@ -25,6 +25,10 @@ class Deck < ActiveRecord::Base
 
   def cards_in_deck
     Card.find_all_by_deck_id_and_in_deck self.id, true
+  end
+
+  def discard_top
+    Card.find_last_by_deck_id self.id, :order => :discarded
   end
 
   def deal player, num_cards = 1
