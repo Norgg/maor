@@ -62,7 +62,7 @@
   
 <% else %>
   <% form_for @player do |f| %>
-    <%= f.text_field :name %>
+    Name: <%= f.text_field :name %>
     <%= f.hidden_field :game_id, :value => @game.id %>
     <%= submit_tag 'Join this game' %>
   <% end %>
