@@ -1,9 +1,16 @@
-<ul>
+
 <% for player in @game.players %>
+  <% player_id = "player_#{player.id}" %>
+  
   <% if player == current_player %>
-    <li><%=h player.name %> (you)</li>
+    <span class="player" id="<%=player_id%>"><%=h player.name %> (you)</span>
   <% else %>
-    <li><%=h player.name %> (<%=h player.hand.size%> cards).</li>
+    <span class="player" id="<%=player_id%>"><%=h player.name %> (<%=h player.hand.size%> cards).</span>
   <% end %>
+
+  <%= drop_receiving_element player_id, 
+                             :accept => 'card',
+                             :with => "'card_id=' + (element.id.split('_').last()) + '&player_id=#{player.id}'",
+                             :url => givecard_game_path(@game) %>
+
 <% end %>
-</ul>

@@ -6,7 +6,7 @@
 <% else %>
   <div id="players">
     <%= render :partial => 'players/index' %>
-  </div>
+  </div><br/>
 <% end %>
 
 <% if current_player %>
@@ -49,13 +49,13 @@
       <%= render :partial => 'players/hand' %>
     </div>
     <%= drop_receiving_element 'hand', 
-                           :accept => 'card',
-                           :with => "'card_id=' + (element.id.split('_').last())",
-                           :url => drawcard_game_path(@game) %>
+                               :accept => 'card',
+                               :with => "'card_id=' + (element.id.split('_').last())",
+                               :url => drawcard_game_path(@game) %>
     <%= periodically_call_remote :url => refresh_game_path(@game), :frequency => 3 %>
   <% else %>
     You are currently playing in: 
-    <%= link_to current_player.game.name, current_player.game %>
+    <%= link_to current_player.game.name, current_player.game %> |
   <% end %>
 
   <hr/><%= link_to "Leave", leave_players_path %>

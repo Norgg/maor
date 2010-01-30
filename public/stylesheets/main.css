@@ -52,4 +52,10 @@
 #hand {
   padding: 5px;
   border: 1px solid #333;
+  min-height: 70px;
+}
+
+.player {
+  padding: 5px;
+  border: 1px solid #333;
 }

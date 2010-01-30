@@ -45,33 +45,12 @@ class GamesController < ApplicationController
   end
 
   def drawcard
-    @game = Game.find params[:id]
+    give_card_to current_player
+  end
 
-    if params[:card_id] == 'deck'
-      @game.deck.deal current_player
-      render :update do |page|
-        page.replace_html "hand", render(:partial => 'players/hand')
-      end
-    else
-      drawn_card = Card.find params[:card_id]
-      drawn_card.player = current_player
-      drawn_card.discarded = nil
-      drawn_card.save!
-
-      @card = @game.deck.discard_top
-
-      render :update do |page|
-        page.replace_html "hand", render(:partial => 'players/hand')
-        
-        if @card
-          page.replace_html "discard", render(:partial => 'cards/show')
-          page.replace_html "lastplayer", "Played by #{@card.player.name}."
-        else
-          page.replace_html "discard", ''
-          page.replace_html "lastplayer", ''
-        end
-      end
-    end
+  def givecard
+    player = Player.find params[:player_id]
+    give_card_to player
   end
 
   def refresh
@@ -90,5 +69,37 @@ class GamesController < ApplicationController
         page.replace_html "lastplayer", ''
       end
     end
+  end
+
+  private
+
+  def give_card_to player
+    @game = Game.find params[:id]
+
+    if params[:card_id] == 'deck'
+      @game.deck.deal player
+      render :update do |page|
+        page.replace_html "hand", render(:partial => 'players/hand')
+      end
+    else
+      given_card = Card.find params[:card_id]
+      given_card.player = player
+      given_card.discarded = nil
+      given_card.save!
+
+      @card = @game.deck.discard_top
+
+      render :update do |page|
+        if @card
+          page.replace_html "discard", render(:partial => 'cards/show')
+          page.replace_html "lastplayer", "Played by #{@card.player.name}."
+        else
+          page.replace_html "discard", ''
+          page.replace_html "lastplayer", ''
+        end
+        page.replace_html "hand", render(:partial => 'players/hand')
+      end
+    end
+
   end
 end

@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :games, :member => {:playcard => :post, :refresh => :post, :drawcard => :post}
+  map.resources :games, :member => {:playcard => :post, :refresh => :post, :drawcard => :post, :givecard => :post}
   map.resources :players, :collection => {:leave => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.
