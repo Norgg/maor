@@ -5,7 +5,7 @@
   <% if player == current_player %>
     <span class="player" id="<%=player_id%>"><%=h player.name %> (you)</span>
   <% else %>
-    <span class="player" id="<%=player_id%>"><%=h player.name %> (<%=h player.hand.size%> cards).</span>
+    <span class="player" id="<%=player_id%>"><%=h player.name %> (<%=h player.hand.size%> cards)</span>
   <% end %>
 
   <%= drop_receiving_element player_id, 
