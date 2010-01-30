@@ -1,5 +1,3 @@
-== maor
-
 It's a rails app.  Run it as you would any other. (install rails, run script/server).
 
 Create a game, join a game, drag cards around.
