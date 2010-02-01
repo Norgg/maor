@@ -1,3 +1,10 @@
+<h3>Games List</h3>
+
+<ul>
+<% for game in @games %>
+  <li><%=link_to game.name, game%></li>
+<% end %>
+</ul>
 
 <% if current_player and current_player.game %>
   You are currently playing in: 
@@ -6,8 +13,4 @@
   <%= link_to "Start a new game", new_game_path %>
 <% end %>
 
-<ul>
-<% for game in @games %>
-  <li><%=link_to game.name, game%></li>
-<% end %>
-</ul>
+

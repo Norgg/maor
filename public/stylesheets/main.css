@@ -2,6 +2,7 @@ body {
   background-color: #e20212;
   background-image: url('/images/flag.png');
   background-repeat: no-repeat;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #game-container {
