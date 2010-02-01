@@ -10,6 +10,12 @@ class PlayersController < ApplicationController
   def leave
     player = current_player
     game = player.game
+    player.hand.each do |card|
+      card.player = nil
+      card.in_deck = true
+      card.discarded = nil
+      card.save!
+    end
     player.game_id = nil
     player.save!
     session.delete :player_id

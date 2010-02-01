@@ -1,3 +1,18 @@
+body {
+  background-color: #e20212;
+  background-image: url('/images/flag.png');
+  background-repeat: no-repeat;
+}
+
+#game-container {
+  margin: 0px auto;
+  width: 500px;
+  min-height: 500px;
+  background-color: #fff;
+  border: 1px solid #e24252;
+  padding: 5px;
+}
+
 .card {
   position: relative;
   padding-left: 3px;
