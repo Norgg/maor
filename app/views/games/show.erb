@@ -1,5 +1,9 @@
 <h2>Game: <%=h @game.name %></h2>
 
+<div id="chat">
+  <%= render :partial => 'games/chat' %>
+</div>
+
 <h3>Players:</h3>
 <% if @game.players.empty? %>
   Game currently empty.
@@ -11,6 +15,7 @@
 
 <% if current_player %>
   <% if current_player.game == @game %>
+    
 
     <div id="deckcontainer">
       Deck:<br/>
