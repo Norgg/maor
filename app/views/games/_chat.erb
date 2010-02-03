@@ -1,6 +1,8 @@
 <div id="log">
   <%= render :partial => 'games/log' %>
 </div>
-<% remote_form_for :game, :url => {:action => :chat} do |f| %>
-  Say: <input type="text" id="game_message" name="game[message]"/>
+<% if current_player and current_player.game == @game %>
+  <% remote_form_for :game, :url => {:action => :chat} do |f| %>
+    Say: <input type="text" id="game_message" name="game[message]"/>
+  <% end %>
 <% end %>
