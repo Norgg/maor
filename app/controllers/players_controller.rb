@@ -19,6 +19,16 @@ class PlayersController < ApplicationController
     player.game_id = nil
     player.save!
     session.delete :player_id
-    redirect_to game
+
+    if game.players.empty?
+      game.deck.cards.each do |card|
+        card.destroy
+      end
+      game.deck.destroy
+      game.destroy
+      redirect_to games_path
+    else
+      redirect_to game
+    end
   end
 end
