@@ -71,7 +71,6 @@ class GamesController < ApplicationController
     render :update do |page|
       page.replace_html "players", render(:partial => 'players/index')
       page.replace_html "log", render(:partial => 'games/log')
-      page.replace_html "hand", render(:partial => 'players/hand')
 
       if @card
         page.replace_html "discard", render(:partial => 'cards/show')
@@ -80,6 +79,8 @@ class GamesController < ApplicationController
         page.replace_html "discard", ''
         page.replace_html "lastplayer", ''
       end
+      
+      page.replace_html "hand", render(:partial => 'players/hand')
     end
   end
 
